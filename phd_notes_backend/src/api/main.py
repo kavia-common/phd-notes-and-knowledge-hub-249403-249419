@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(
+    title="PhD Notes Backend (Placeholder)",
+    description="Minimal FastAPI placeholder for the PhD Notes & Knowledge Hub backend container.",
+    version="0.0.0",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -11,6 +15,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def health_check():
+
+# PUBLIC_INTERFACE
+@app.get(
+    "/",
+    summary="Health check",
+    description="Minimal health check endpoint to verify the backend container is running.",
+    tags=["System"],
+    operation_id="health_check",
+)
+def health_check() -> dict:
+    """Return a minimal health payload.
+
+    Returns:
+        dict: A small JSON payload indicating the service is up.
+    """
     return {"message": "Healthy"}
